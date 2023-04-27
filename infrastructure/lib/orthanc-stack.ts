@@ -105,13 +105,12 @@ export class OrthancStack extends Stack {
         STORAGE_BUNDLE_DEFAULTS: "false",
         LD_LIBRARY_PATH: "/usr/local/lib",
         WSI_PLUGIN_ENABLED: "true",
+        AWS_S3_STORAGE_PLUGIN_ENABLED: props.enable_dicom_s3_storage
+          ? "true"
+          : "false",
         ORTHANC_JSON: props.enable_dicom_s3_storage
           ? JSON.stringify(orthancConfig)
           : "{}",
-        // If we disabled S3, remove the plugin so it won't cause issues at startup
-        BEFORE_ORTHANC_STARTUP_SCRIPT: props.enable_dicom_s3_storage
-          ? ""
-          : "/tmp/custom-script.sh",
       },
       secrets: {
         ORTHANC__REGISTERED_USERS:
